@@ -10,7 +10,7 @@ Emit player death event in Mineflayer.
 
 [简体中文 文档](./README.ZH_CN.MD)
 
-### Install
+## Install
 
 ```
 npm install mineflayer-death-event --save
@@ -22,9 +22,9 @@ or
 yarn add mineflayer-death-event
 ```
 
-### Example
+## Example
 
-```
+```javascript
 const mineflayer = require("mineflayer")
 const autoeat = require("mineflayer-death-event")
 
@@ -44,36 +44,36 @@ bot.on("playerDeath", (data) => {
 [Example Code](./test/index.js)
 
 
-### Event
+## Event
 
 `mineflayer-death-event` will emit a event when player die. The event name is `playerDeath`.
 
-#### victim
+### victim
 
 Attacker. Interface see [Entity](#Entity).
 
-#### offender
+### offender
 
 The player being attacked. Interface see [Entity](#Entity).
 
 <a name=module-export-contants></a>
 module will export two constants. You can Determine the type of variable "`type`"
 
-```
+```javascript
 const { DEATH_ENTITY_TYPE_MOB, DEATH_ENTITY_TYPE_PLAYER } = require("mineflayer-death-event");
 ```
 
-#### weapon
+### weapon
 
 The weapon used to kill the attacked player. Interface see [Weapon](#Weapon).
 
-#### method
+### method
 
 offender death method.
 
-### Interface
+## Interface
 
-#### Entity
+### Entity
 
 | property | type | description |
 | ------ | ------ | ------ |
@@ -82,7 +82,7 @@ offender death method.
 | detail | Function | If type not is ["mob"](#module-export-contants), then will return Mineflayer player interface [(source)](https://mineflayer.prismarine.js.org/#/api?id=botplayers) |
 | raw | Function | Original value, from [message](https://mineflayer.prismarine.js.org/#/api?id=quotmessagequot-jsonmsg-position) event |
 
-#### Weapon
+### Weapon
 
 | property | type | description |
 | ------ | ------ | ------ |
