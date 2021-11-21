@@ -1,0 +1,26 @@
+{
+  "name": "mineflayer-death-event",
+  "version": "1.0.0",
+  "description": "Emit player death event in Mineflayer.",
+  "main": "src/index.js",
+  "author": "tuanzisama",
+  "license": "MIT",
+  "dependencies": {
+    "lodash.get": "^4.4.2",
+    "mojangson": "^2.0.2"
+  },
+  "keywords": [
+    "mineflayer",
+    "plugin",
+    "minecraft",
+    "death-event"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuanzisama/mineflayer-death-event.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tuanzisama/mineflayer-death-event/issues"
+  },
+  "homepage": "https://github.com/tuanzisama/mineflayer-death-event#readme"
+}
