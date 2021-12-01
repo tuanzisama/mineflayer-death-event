@@ -26,7 +26,7 @@ yarn add mineflayer-death-event
 
 ```javascript
 const mineflayer = require("mineflayer")
-const autoeat = require("mineflayer-death-event")
+const deathEvent = require("mineflayer-death-event")
 
 const bot = mineflayer.createBot({
   host: "mc.example.com",
@@ -34,7 +34,7 @@ const bot = mineflayer.createBot({
 })
 
 // Load the plugin
-bot.loadPlugin(autoeat)
+bot.loadPlugin(deathEvent)
 
 bot.on("playerDeath", (data) => {
     console.log(data);
