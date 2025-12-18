@@ -2,29 +2,29 @@
 
 # mineflayer-death-event
 
-Emit `playerDeath` events for Mineflayer.
+为 Mineflayer 提供 `playerDeath` 事件。
 
-Pluggable processor: bring your own parser.
+可插拔解析器：支持自定义死亡消息解析。
 
 <a href="https://www.npmjs.com/package/mineflayer-death-event"><img alt="npm" src="https://img.shields.io/npm/v/mineflayer-death-event?color=2563eb" /></a> <a href="https://www.npmjs.com/package/mineflayer-death-event"><img alt="downloads" src="https://img.shields.io/npm/dm/mineflayer-death-event" /></a> <a href="./package.json"><img alt="license" src="https://img.shields.io/npm/l/mineflayer-death-event" /></a> <img alt="mineflayer" src="https://img.shields.io/badge/mineflayer-%5E4.x-16a34a" />
 
-English · <a href="./README.zh-CN.md">简体中文</a>
+<a href="./README.md">English</a> · 简体中文
 
 </div>
 
-## Overview
+## 简介
 
-`mineflayer-death-event` is a Mineflayer plugin that emits a `playerDeath` event by parsing death messages.
+`mineflayer-death-event` 是一个 Mineflayer 插件：通过解析死亡提示消息，触发 `playerDeath` 事件。
 
-It is built around a pluggable processor (Strategy Pattern): you can swap in your own parser for different servers, languages, or custom death-message formats.
+本项目的核心是“可插拔解析器”（策略模式）：你可以替换内置解析器，用来适配不同服务器、不同语言或自定义死亡提示格式。
 
-### Install
+## 安装
 
 ```bash
 npm i mineflayer-death-event
 ```
 
-### Usage
+## 用法
 
 ```js
 import mineflayer from "mineflayer";
@@ -39,14 +39,16 @@ const bot = mineflayer.createBot({
 bot.loadPlugin(deathEventPlugin());
 
 bot.on("playerDeath", (event) => {
-  console.info("attacker => ", event.getAttacker()?.toString());
-  console.info("victim => ", event.getVictim()?.toString());
-  console.info("reason => ", event.getReason());
-  console.info("weapon => ", event.getWeapon()?.toString());
+  console.log({
+    victim: event.getVictim()?.name,
+    attacker: event.getAttacker()?.name,
+    reason: event.getReason(),
+    weapon: event.getWeapon()?.toString?.(),
+  });
 });
 ```
 
-### Development
+## 开发
 
 ```bash
 pnpm i
@@ -55,6 +57,6 @@ pnpm typecheck
 pnpm playground
 ```
 
-### License
+## 许可证
 
 MIT
