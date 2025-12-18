@@ -16,19 +16,25 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "types": "./dist/index.d.cts",
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "playground": "tsc --noEmit && node --no-warnings=ExperimentalWarning --loader ts-node/esm/transpile-only ./playground/index.ts",
+    "playground": "node ./playground/index.mjs",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "mineflayer": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

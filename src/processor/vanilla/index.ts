@@ -1,14 +1,29 @@
 import type { ChatMessage } from "prismarine-chat";
-import { BaseProcessor } from "../base-processor";
-import type { ChatPosition, Nullable } from "../../types";
+import { AbstractBaseProcessor, AbstractDeathEvent } from "../base-processor";
+import type { ChatPosition, Data, Nullable } from "../../types";
 import { Entity } from "../../entity";
+import { Item } from "../../item";
 
-class VanillaProcessor extends BaseProcessor {
+class VanillaProcessor<T extends Data> extends AbstractBaseProcessor<T, VanillaDeathEvent> {
+  getIdentifer(): string {
+    return "Vanilla (Built-in)";
+  }
+
+  getAuthor(): string {
+    return "@tuanzisama";
+  }
+
+  parse(position: ChatPosition, jsonMsg: ChatMessage): VanillaDeathEvent {
+    return new VanillaDeathEvent(position, jsonMsg);
+  }
+}
+
+class VanillaDeathEvent extends AbstractDeathEvent {
   constructor(position: ChatPosition, jsonMsg: ChatMessage) {
     super(position, jsonMsg);
   }
 
-  isDeathMessage(): boolean {
+  isValidEvent(): boolean {
     return this.position === "system";
   }
 
@@ -20,6 +35,19 @@ class VanillaProcessor extends BaseProcessor {
   getVictim(): Nullable<Entity> {
     const { uuid, name, id } = this.getEntityInfo(this.jsonMsg.json?.with?.[0]);
     return uuid ? new Entity({ uuid, name, id }) : null;
+  }
+
+  getWeapon(): Nullable<any> {
+    if (this.getReason()?.endsWith("item")) {
+      // killed by item.
+      const jsonMsg = this.jsonMsg.json?.with?.find((item: ChatMessage) => item.translate === "chat.square_brackets");
+      if (jsonMsg.hover_event) {
+        return new Item(jsonMsg);
+      } else {
+        return null;
+      }
+    }
+    return null;
   }
 
   getReason(): Nullable<string> {

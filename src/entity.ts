@@ -13,11 +13,15 @@ class Entity {
   constructor(options: EntityOptions) {
     this.options = options;
 
-    if (options.uuid && !isUUID(options.uuid)) {
+    if ((options.uuid && !isUUID(options.uuid)) || !options.name) {
       // try to get name from uuid
-      const entity = this.isPlayer() ? this.getPlayer() : this.getEntity();
+      const entity = this.getEntity();
       if (entity) {
         this.options.uuid = entity.uuid;
+        if (!options.name) {
+          // if name is not provided, set it from entity name
+          this.options.name = entity.name;
+        }
       }
     }
   }
@@ -42,6 +46,10 @@ class Entity {
     return this.id === "minecraft:player";
   }
 
+  isNearest() {
+    return this.getEntity() !== null;
+  }
+
   /**
    * Get player from bot
    * @returns Player or null
@@ -57,6 +65,10 @@ class Entity {
    */
   getEntity() {
     const bot = this.getBot();
+
+    if (this.isPlayer()) {
+      return this.getPlayer().entity || null;
+    }
 
     if (this.uuid && isUUID(this.uuid)) {
       return Object.values(bot.entities).find((entity) => entity.uuid === this.uuid) || null;
